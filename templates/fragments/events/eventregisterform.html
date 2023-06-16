@@ -3,7 +3,7 @@
         New Event
     </div>
     <div class="card-body">
-        <form method="POST" action="{% url 'event_register' %}">{% csrf_token %}
+        <form method="POST" action="{% url 'event_register' %}" enctype='multipart/form-data'>{% csrf_token %}
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
                 <input type="text" class="form-control" id="title" name="title" required>
