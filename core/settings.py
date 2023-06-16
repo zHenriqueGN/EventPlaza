@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "core.apps.authentication.apps.AuthenticationConfig",
+    "core.apps.events.apps.EventsConfig",
 ]
 
 MIDDLEWARE = [
