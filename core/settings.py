@@ -117,8 +117,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "/static/"
-STATICFILES_DIRS = (Path.joinpath(BASE_DIR, "static"),)
-STATIC_ROOT = Path.joinpath(BASE_DIR, "templates" "static")
+STATICFILES_DIRS = (Path.joinpath(BASE_DIR, "templates", "static"),)
+STATIC_ROOT = Path.joinpath(BASE_DIR, "static")
 
 
 # Media files (User uploaded files)
@@ -130,3 +130,7 @@ MEDIA_URL = "/media/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# Auth user model
+AUTH_USER_MODEL = "authentication.User"
