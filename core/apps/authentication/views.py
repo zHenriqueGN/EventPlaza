@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.http import JsonResponse
 from django.views import View
 from .controller import register_user, login_user
 
@@ -32,4 +31,4 @@ class LoginView(View):
         }
         if not login_user(request, data):
             return redirect(reverse("login"))
-        return JsonResponse({"message": "User logged in!"})
+        return redirect(reverse("event_register"))
