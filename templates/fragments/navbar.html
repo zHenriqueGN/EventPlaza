@@ -1,5 +1,21 @@
 <nav class="navbar bg-dark mb-4" data-bs-theme="dark">
   <div class="container-fluid">
-    <span class="navbar-brand mb-0 h1">EventPlaza</span>
+    <div>
+      <span class="navbar-brand mb-0 h1">EventPlaza</span>
+    </div>
+    <ul class="nav justify-content-center">
+      {% if not request.user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'register' %}">Register</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'login' %}">Login</a>
+      </li>
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'login' %}">Logout</a>
+      </li>
+      {% endif %}
+    </ul>
   </div>
 </nav>
