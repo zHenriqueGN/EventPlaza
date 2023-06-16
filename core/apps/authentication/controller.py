@@ -22,6 +22,7 @@ def register_user(request, data) -> bool:
         return False
 
     User.objects.create_user(username=username, email=email, password=password)
+    add_message(request, constants.SUCCESS, "User successfully registered!")
 
     return True
 
@@ -37,5 +38,6 @@ def login_user(request, data) -> bool:
         return False
 
     login(request, user)
+    add_message(request, constants.SUCCESS, "User successfully logged in!")
 
     return True
