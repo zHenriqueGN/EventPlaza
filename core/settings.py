@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from django.contrib.messages import constants
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -55,7 +56,7 @@ ROOT_URLCONF = "core.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [Path.joinpath(BASE_DIR, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -116,9 +117,32 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
+STATICFILES_DIRS = (Path.joinpath(BASE_DIR, "templates", "static"),)
+STATIC_ROOT = Path.joinpath(BASE_DIR, "static")
+
+
+# Media files (User uploaded files)
+
+MEDIA_ROOT = Path.joinpath(BASE_DIR, "media")
+MEDIA_URL = "/media/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# Auth user model
+AUTH_USER_MODEL = "authentication.User"
+
+
+# Django messages configs
+
+MESSAGE_TAGS = {
+    constants.DEBUG: "info",
+    constants.ERROR: "error",
+    constants.SUCCESS: "success",
+    constants.INFO: "info",
+    constants.WARNING: "warning",
+}
