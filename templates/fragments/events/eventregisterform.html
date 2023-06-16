@@ -6,29 +6,30 @@
         <form method="POST" action="{% url 'register' %}">{% csrf_token %}
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="title" name="title">
+                <input type="text" class="form-control" id="title" name="title" required>
             </div>
             <div class="mb-3">
                 <label for="logo" class="form-label">Logo</label>
-                <input type="file" class="form-control" id="logo" name="logo">
+                <input type="file" class="form-control" id="logo" name="logo" required>
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
-                <input type="text" class="form-control" id="description" name="description">
+                <input type="text" class="form-control" id="description" name="description" required>
             </div>
             <div class="mb-3 row">
                 <div class="col-6">
                     <label for="start_date" class="form-label">Start Date</label>
-                    <input type="date" class="form-control" id="start_date" name="start_date">
+                    <input type="date" class="form-control" id="start_date" name="start_date" required>
                 </div>
                 <div class="col-6">
                     <label for="end_date" class="form-label">End Date</label>
-                    <input type="date" class="form-control" id="end_date" name="end_date">
+                    <input type="date" class="form-control" id="end_date" name="end_date" required>
                 </div>
             </div>
             <div class="mb-3">
                 <label for="duration" class="form-label">Duration</label>
-                <input type="text" class="form-control" id="duration" name="duration" placeholder="Time in hours">
+                <input type="text" class="form-control" id="duration" name="duration" placeholder="Time in hours"
+                    required>
             </div>
             <button type="submit" class="btn btn-primary container-fluid">Submit</button>
         </form>
