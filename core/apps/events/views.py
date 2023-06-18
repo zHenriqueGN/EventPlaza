@@ -4,6 +4,7 @@ from django.views import View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from .controller import event_register
+from .models import Event
 
 
 class EventRegisterView(View):
@@ -24,3 +25,10 @@ class EventRegisterView(View):
 
         event_register(request, data)
         return redirect(reverse("event_register"))
+
+
+class EventEditView(View):
+    def get(self, request):
+        events = Event.objects.filter(owner=request.user)
+        context = {"events": events}
+        return render(request, "eventedit.html", context)
