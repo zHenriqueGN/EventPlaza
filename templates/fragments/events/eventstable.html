@@ -1,26 +1,43 @@
-<table class="table table-dark table-striped">
-    <thead>
-        <tr>
-            <th>Logo</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Duration</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for event in events %}
-        <tr>
-            <td width="10%"><img style="width: 100%;" class="img-fluid rounded-circle" src="/media/{{ event.logo }}"
-                    alt="event-logo">
-            </td>
-            <td>{{ event.title }}</td>
-            <td>{{ event.description }}</td>
-            <td>{{ event.start_date }}</td>
-            <td>{{ event.end_date }}</td>
-            <td>{{ event.duration }} hours</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="bg-dark p-3 rounded">
+    <div>
+        <form action="{% url 'event_edit' %}" method="get">
+            <div class="mb-1">
+                <label for="title" class="form-label text-light">
+                    Title
+                    <input type="text" class="form-control mt-1" id="title" name="title">
+                </label>
+                <button type="submit" class="btn btn-primary mb-2">Filter</button>
+            </div>
+        </form>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <th>Logo</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Duration</th>
+                    <th>Access Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for event in events %}
+                <tr>
+                    <td width="10%"><img style="width: 100%;" class="img-fluid" src="/media/{{ event.logo }}"
+                            alt="event-logo">
+                    </td>
+                    <td>{{ event.title }}</td>
+                    <td>{{ event.description }}</td>
+                    <td>{{ event.start_date }}</td>
+                    <td>{{ event.end_date }}</td>
+                    <td>{{ event.duration }} hours</td>
+                    <td>Access Link</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
