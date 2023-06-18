@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views import View
 from .controller import register_user, login_user
+from django.contrib.auth import logout
 
 
 class RegisterView(View):
@@ -32,3 +33,9 @@ class LoginView(View):
         if not login_user(request, data):
             return redirect(reverse("login"))
         return redirect(reverse("event_register"))
+
+
+class LogoutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect(reverse("login"))
