@@ -1,0 +1,53 @@
+<div class="bg-dark p-3 rounded">
+    <div>
+        <form action="{% url 'event_edit' %}" method="get">
+            <div class="mb-1">
+                <label for="title" class="form-label text-light">
+                    Title
+                    <input type="text" class="form-control mt-1" id="title" name="title">
+                </label>
+                <button type="submit" class="btn btn-primary mb-2">Filter</button>
+            </div>
+        </form>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th>Logo</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Duration</th>
+                    <th>Access Link</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for event in events %}
+                <tr>
+                    <td width="10%"><img style="width: 100%;" class="img-fluid" src="/media/{{ event.logo }}"
+                            alt="event-logo">
+                    </td>
+                    <td>{{ event.title }}</td>
+                    <td>{{ event.description }}</td>
+                    <td>{{ event.start_date }}</td>
+                    <td>{{ event.end_date }}</td>
+                    <td>{{ event.duration }} hours</td>
+                    <td>Access Link</td>
+                    <td><a href="{% url 'event_editor' event.id %}"><button class="btn btn-primary">Edit</button></a>
+                    </td>
+                    <td>
+                        <form action="{% url 'event_delete' event.id %}" method="post">{% csrf_token %}
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                </a>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

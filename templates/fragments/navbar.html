@@ -3,19 +3,31 @@
     <div>
       <span class="navbar-brand mb-0 h1">EventPlaza</span>
     </div>
-    <ul class="nav justify-content-center">
-      {% if not request.user.is_authenticated %}
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'register' %}">Register</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'login' %}">Login</a>
-      </li>
-      {% else %}
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'login' %}">Logout</a>
-      </li>
-      {% endif %}
-    </ul>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav justify-content-end">
+        {% if not request.user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'register' %}">Register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">Login</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'event_register' %}">Event Register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'event_edit' %}">Event Edit</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-danger" href="{% url 'logout' %}">Logout</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
   </div>
 </nav>
