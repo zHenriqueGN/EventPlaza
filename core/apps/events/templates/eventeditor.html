@@ -1,0 +1,7 @@
+{% extends "bases/base.html" %}
+{% block "title" %}Event Editor{% endblock %}
+{% block "body" %}
+<div class="row mx-3">
+    {% include "fragments/events/eventeditorform.html" with events=events %}
+</div>
+{% endblock %}
