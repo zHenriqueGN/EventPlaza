@@ -12,6 +12,7 @@ class EventRegisterView(View):
     def get(self, request):
         return render(request, "eventregister.html")
 
+    @method_decorator(login_required(login_url="/authentication/login/"))
     def post(self, request):
         data = {
             "owner": request.user,
@@ -28,6 +29,7 @@ class EventRegisterView(View):
 
 
 class EventEditView(View):
+    @method_decorator(login_required(login_url="/authentication/login/"))
     def get(self, request):
         events = Event.objects.filter(owner=request.user)
         context = {"events": events}
