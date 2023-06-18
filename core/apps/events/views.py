@@ -31,6 +31,9 @@ class EventRegisterView(View):
 class EventEditView(View):
     @method_decorator(login_required(login_url="/authentication/login/"))
     def get(self, request):
+        title_filter = request.GET.get("title")
         events = Event.objects.filter(owner=request.user)
+        if title_filter:
+            events = events.filter(title__contains=title_filter)
         context = {"events": events}
         return render(request, "eventedit.html", context)
