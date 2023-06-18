@@ -1,7 +1,9 @@
 {% extends "bases/base.html" %}
 {% block "title" %}Edit Event{% endblock %}
 {% block "body" %}
-<div class="d-flex justify-content-center">
-    {% include "fragments/events/eventstable.html" with events=events %}
+<div class="row mx-3">
+    <div class="table-responsive">
+        {% include "fragments/events/eventstable.html" with events=events %}
+    </div>
 </div>
 {% endblock %}
