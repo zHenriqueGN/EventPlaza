@@ -22,6 +22,7 @@
                     <th>Duration</th>
                     <th>Access Link</th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -37,6 +38,11 @@
                     <td>{{ event.duration }} hours</td>
                     <td>Access Link</td>
                     <td><a href="{% url 'event_editor' event.id %}"><button class="btn btn-primary">Edit</button></a>
+                    </td>
+                    <td>
+                        <form action="{% url 'event_delete' event.id %}" method="post">{% csrf_token %}
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
                     </td>
                 </tr>
                 </a>
