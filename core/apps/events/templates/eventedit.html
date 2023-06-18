@@ -1,0 +1,32 @@
+{% extends "bases/base.html" %}
+{% block "title" %}Edit Event{% endblock %}
+{% block "body" %}
+<div class="d-flex justify-content-center">
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr>
+                <th>Logo</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Duration</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for event in events %}
+            <tr>
+                <td width="10%"><img style="width: 100%;" class="img-fluid rounded-5 rounded-top-0"
+                        src="/media/{{ event.logo }}" alt="event-logo">
+                </td>
+                <td>{{ event.title }}</td>
+                <td>{{ event.description }}</td>
+                <td>{{ event.start_date }}</td>
+                <td>{{ event.end_date }}</td>
+                <td>{{ event.duration }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
