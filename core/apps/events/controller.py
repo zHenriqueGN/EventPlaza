@@ -48,3 +48,9 @@ def update_logo(event, logo) -> Event:
     event.logo.delete(False)
     event.logo.save(str(logo), logo)
     return event
+
+
+def event_delete(request, id):
+    Event.objects.get(id=id).delete()
+    add_message(request, constants.SUCCESS, "Event successfully deleted!")
+    return True
