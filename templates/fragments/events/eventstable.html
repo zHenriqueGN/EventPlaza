@@ -21,6 +21,7 @@
                     <th>End Date</th>
                     <th>Duration</th>
                     <th>Access Link</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -35,7 +36,10 @@
                     <td>{{ event.end_date }}</td>
                     <td>{{ event.duration }} hours</td>
                     <td>Access Link</td>
+                    <td><a href="{% url 'event_editor' event.id %}"><button class="btn btn-primary">Edit</button></a>
+                    </td>
                 </tr>
+                </a>
                 {% endfor %}
             </tbody>
         </table>
