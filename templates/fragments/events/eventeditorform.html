@@ -3,7 +3,7 @@
         Edit Event
     </div>
     <div class="card-body">
-        <form method="POST" action="{% url 'event_register' %}" enctype='multipart/form-data'>{% csrf_token %}
+        <form method="POST" action="{% url 'event_editor' event.id %}" enctype='multipart/form-data'>{% csrf_token %}
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
                 <input type="text" class="form-control" id="title" name="title" value="{{ event.title }}" required>
@@ -14,7 +14,7 @@
                 <div style="width: 15rem;" class="mb-3">
                     <img class="img-fluid" src="/media/{{ event.logo }}">
                 </div>
-                <input type="file" class="form-control" id="logo" name="logo" required>
+                <input type="file" class="form-control" id="logo" name="logo">
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
