@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.views import View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from .controller import event_register, event_edit
+from .controller import event_register, event_edit, event_delete
 from .models import Event
 
 
@@ -59,3 +59,9 @@ class EventEditorView(View):
         }
         event_edit(request, data)
         return redirect(reverse("event_editor", args=[id]))
+
+
+class EventDeleteView(View):
+    def post(self, request, id):
+        event_delete(request, id)
+        return redirect(reverse("event_edit"))
