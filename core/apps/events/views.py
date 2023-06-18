@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.views import View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from .controller import event_register
+from .controller import event_register, event_edit
 from .models import Event
 
 
@@ -45,3 +45,17 @@ class EventEditorView(View):
         event = Event.objects.filter(owner=request.user, id=id).first()
         context = {"event": event}
         return render(request, "eventeditor.html", context)
+
+    @method_decorator(login_required(login_url="/authentication/login/"))
+    def post(self, request, id):
+        data = {
+            "id": id,
+            "title": request.POST.get("title"),
+            "logo": request.FILES.get("logo"),
+            "description": request.POST.get("description"),
+            "start_date": request.POST.get("start_date"),
+            "end_date": request.POST.get("end_date"),
+            "duration": request.POST.get("duration"),
+        }
+        event_edit(request, data)
+        return redirect(reverse("event_editor", args=[id]))
