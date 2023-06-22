@@ -7,6 +7,14 @@ from .controller import event_register, event_edit, event_delete
 from .models import Event
 
 
+class EventAccessView(View):
+    @method_decorator(login_required(login_url="/authentication/login/"))
+    def get(self, request, id):
+        event = Event.objects.get(id=id)
+        context = {"event": event}
+        return render(request, "eventaccess.html", context)
+
+
 class EventRegisterView(View):
     @method_decorator(login_required(login_url="/authentication/login/"))
     def get(self, request):
