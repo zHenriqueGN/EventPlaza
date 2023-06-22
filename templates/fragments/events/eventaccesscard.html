@@ -1,0 +1,20 @@
+<div class="card bg-dark text-light" style="width: 28rem;">
+    <img src="/media/{{ event.logo }}" class="card-img-top" alt="event-logo">
+    <div class="card-body">
+        <h5 class="card-title fw-bold">{{ event.title }}</h5>
+        <p class="card-text">{{ event.description }}</p>
+        <p class="card-text">
+            <span class="text-decoration-underline">Start date:</span>
+            &nbsp;{{ event.start_date | date:'F, d' }}
+        </p>
+        <p class="card-text">
+            <span class="text-decoration-underline">End date:</span>
+            &nbsp;{{ event.end_date | date:'F, d' }}
+        </p>
+        <p class="card-text">
+            <span class="text-decoration-underline">Duration:</span>
+            &nbsp;{{ event.duration }} hours
+        </p>
+        <a href="#" class="btn btn-primary container-fluid">Subscribe</a>
+    </div>
+</div>
