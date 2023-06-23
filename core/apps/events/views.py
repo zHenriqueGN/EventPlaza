@@ -9,7 +9,15 @@ from core.settings import LOGIN_URL
 
 
 class EventAccessView(View):
-    @method_decorator(login_required(login_url=LOGIN_URL))
+    @method_decorator(
+        [
+            login_required(login_url=LOGIN_URL),
+            user_passes_test(
+                lambda user: user.groups.filter(name="Client").exists(),
+                login_url="/",
+            ),
+        ]
+    )
     def get(self, request, id):
         event = Event.objects.get(id=id)
         context = {"event": event}
