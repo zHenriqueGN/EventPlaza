@@ -19,6 +19,8 @@
             <span class="text-decoration-underline">Duration:</span>
             &nbsp;{{ event.duration }} hours
         </p>
-        <a href="#" class="btn btn-primary container-fluid">Subscribe</a>
+        <form action="{% url 'event_access' event.id %}" method="POST">{% csrf_token %}
+            <button type="submit" class="btn btn-primary container-fluid">Subscribe</button>
+        </form>
     </div>
 </div>
