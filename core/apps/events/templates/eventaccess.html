@@ -1,0 +1,7 @@
+{% extends "bases/base.html" %}
+{% block "title" %}Access Event{% endblock %}
+{% block "body" %}
+<div class="d-flex aling-items-center justify-content-center mx-4">
+    {% include "fragments/events/eventaccesscard.html" with event=event %}
+</div>
+{% endblock %}

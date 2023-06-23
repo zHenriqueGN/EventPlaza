@@ -36,8 +36,17 @@
                     <td>{{ event.start_date }}</td>
                     <td>{{ event.end_date }}</td>
                     <td>{{ event.duration }} hours</td>
-                    <td>Access Link</td>
-                    <td><a href="{% url 'event_editor' event.id %}"><button class="btn btn-primary">Edit</button></a>
+                    <td>
+                        <button id="access-link-{{ event.id }}" class="btn btn-secondary"
+                            toCopy="http://127.0.0.1:8000{% url 'event_access' event.id %}"
+                            onclick="copyToClipboard('access-link-{{ event.id }}')">
+                            Copy Access Link
+                        </button>
+                    </td>
+                    <td>
+                        <a href="{% url 'event_editor' event.id %}">
+                            <button class="btn btn-primary">Edit</button>
+                        </a>
                     </td>
                     <td>
                         <form action="{% url 'event_delete' event.id %}" method="post">{% csrf_token %}

@@ -1,3 +1,4 @@
+{% load authentication_tags %}
 <nav class="navbar bg-dark mb-4" data-bs-theme="dark">
   <div class="container-fluid">
     <div>
@@ -17,12 +18,20 @@
           <a class="nav-link" href="{% url 'login' %}">Login</a>
         </li>
         {% else %}
+        {% if request.user|has_group:"Manager" %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'event_register' %}">Event Register</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'event_edit' %}">Event Edit</a>
         </li>
+        {% else %}
+        {% if request.user|has_group:"Client" %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'event_list' %}">Events</a>
+        </li>
+        {% endif %}
+        {% endif %}
         <li class="nav-item">
           <a class="nav-link text-danger" href="{% url 'logout' %}">Logout</a>
         </li>

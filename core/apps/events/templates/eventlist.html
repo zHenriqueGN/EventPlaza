@@ -1,0 +1,7 @@
+{% extends "bases/base.html" %}
+{% block "title" %}Events{% endblock %}
+{% block "body" %}
+<div class="d-flex align-items-center justify-content-center mx-4 mb-4">
+    {% include "fragments/events/eventsgrid.html" with events=events %}
+</div>
+{% endblock %}
