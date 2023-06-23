@@ -1,8 +1,12 @@
-<div class="card bg-dark text-light" style="width: 28rem;">
+<div class="card bg-dark text-light" style="width: 60rem;">
     <img src="/media/{{ event.logo }}" class="card-img-top" alt="event-logo">
     <div class="card-body">
         <h5 class="card-title fw-bold">{{ event.title }}</h5>
         <p class="card-text">{{ event.description }}</p>
+        <p class="card-text">
+            <span class="text-decoration-underline">Creator:</span>
+            &nbsp;{{ event.owner }}
+        </p>
         <p class="card-text">
             <span class="text-decoration-underline">Start date:</span>
             &nbsp;{{ event.start_date | date:'F, d' }}
