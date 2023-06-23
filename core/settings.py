@@ -138,6 +138,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "authentication.User"
 
 
+# Authentication
+
+LOGIN_URL = "/authentication/login"
+
+
 # Django messages configs
 
 MESSAGE_TAGS = {
