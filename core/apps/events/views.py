@@ -8,6 +8,22 @@ from .models import Event
 from core.settings import LOGIN_URL
 
 
+class EventListView(View):
+    @method_decorator(
+        [
+            login_required(login_url=LOGIN_URL),
+            user_passes_test(
+                lambda user: user.groups.filter(name="Client").exists(),
+                login_url="/",
+            ),
+        ]
+    )
+    def get(self, request):
+        events = Event.objects.all()
+        context = {"events": events}
+        return render(request, "eventlist.html", context)
+
+
 class EventAccessView(View):
     @method_decorator(
         [
