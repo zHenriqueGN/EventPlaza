@@ -12,6 +12,7 @@ class Event(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     duration = models.IntegerField()
+    participants = models.ManyToManyField(User, "event_participants")
 
     def __str__(self):
         return self.title
