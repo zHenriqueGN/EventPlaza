@@ -22,6 +22,23 @@
                     <input type="password" class="form-control" id="confirmpassword" name="confirmpassword" required>
                 </div>
             </div>
+            <div class="mb-3 row">
+                <div class="col">
+                    <div class="form-check">
+                        <label class="form-check-label" for="Client">
+                            I'm a client
+                        </label>
+                        <input class="form-check-input" type="radio" name="user_group" id="Client" value="Client"
+                            checked>
+                    </div>
+                    <div class="form-check">
+                        <label class="form-check-label" for="Manager">
+                            I'm a manager
+                        </label>
+                        <input class="form-check-input" type="radio" name="user_group" id="Manager" value="Manager">
+                    </div>
+                </div>
+            </div>
             <button type="submit" class="btn btn-primary container-fluid">Submit</button>
         </form>
     </div>
