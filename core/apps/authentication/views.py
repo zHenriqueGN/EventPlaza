@@ -15,6 +15,7 @@ class RegisterView(View):
             "email": request.POST.get("email"),
             "password": request.POST.get("password"),
             "confirmpassword": request.POST.get("confirmpassword"),
+            "user_group": request.POST.get("user_group"),
         }
         if not register_user(request, data):
             return redirect(reverse("register"))
