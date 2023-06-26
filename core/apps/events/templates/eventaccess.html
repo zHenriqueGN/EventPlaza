@@ -1,7 +1,12 @@
 {% extends "bases/base.html" %}
 {% block "title" %}Access Event{% endblock %}
 {% block "body" %}
-<div class="d-flex aling-items-center justify-content-center mx-4">
-    {% include "fragments/events/eventaccesscard.html" with event=event %}
+<div class="row mx-4">
+    <div class="p-0 mb-3">
+        <a href="/events/"><button class="btn btn-primary">Back</button></a>
+    </div>
+    <div class="d-flex aling-items-center justify-content-center">
+        {% include "fragments/events/eventaccesscard.html" with event=event %}
+    </div>
 </div>
 {% endblock %}
