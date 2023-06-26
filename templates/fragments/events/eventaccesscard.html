@@ -1,3 +1,4 @@
+{% load authentication_tags %}
 <div class="card bg-dark text-light" style="width: 60rem;">
     <img src="/media/{{ event.logo }}" class="card-img-top" alt="event-logo">
     <div class="card-body">
@@ -19,8 +20,10 @@
             <span class="text-decoration-underline">Duration:</span>
             &nbsp;{{ event.duration }} hours
         </p>
+        {% if request.user|has_group:"Client" %}
         <form action="{% url 'event_access' event.id %}" method="POST">{% csrf_token %}
             <button type="submit" class="btn btn-primary container-fluid">Subscribe</button>
         </form>
+        {% endif %}
     </div>
 </div>
