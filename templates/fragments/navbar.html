@@ -10,6 +10,9 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav justify-content-end">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'event_list' %}">Events</a>
+        </li>
         {% if not request.user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'register' %}">Register</a>
@@ -26,9 +29,6 @@
           <a class="nav-link" href="{% url 'event_edit' %}">Event Edit</a>
         </li>
         {% endif %}
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'event_list' %}">Events</a>
-        </li>
         <li class="nav-item">
           <a class="nav-link text-danger" href="{% url 'logout' %}">Logout</a>
         </li>
