@@ -13,10 +13,6 @@ class EventListView(View):
     @method_decorator(
         [
             login_required(login_url=LOGIN_URL),
-            user_passes_test(
-                lambda user: user.groups.filter(name="Client").exists(),
-                login_url="/",
-            ),
         ]
     )
     def get(self, request):
@@ -29,10 +25,6 @@ class EventAccessView(View):
     @method_decorator(
         [
             login_required(login_url=LOGIN_URL),
-            user_passes_test(
-                lambda user: user.groups.filter(name="Client").exists(),
-                login_url="/",
-            ),
         ]
     )
     def get(self, request, id):
@@ -124,7 +116,8 @@ class EventEditorView(View):
     )
     def get(self, request, id):
         event = Event.objects.filter(owner=request.user, id=id).first()
-        context = {"event": event}
+        event_participants = event.participants.all()
+        context = {"event": event, "event_participants": event_participants}
         return render(request, "eventeditor.html", context)
 
     @method_decorator(
