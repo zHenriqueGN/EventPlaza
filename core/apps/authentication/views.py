@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.views import View
 from .controller import register_user, login_user
 from django.contrib.auth import logout
+from django.contrib.messages import add_message, constants
 
 
 class RegisterView(View):
@@ -39,4 +40,5 @@ class LoginView(View):
 class LogoutView(View):
     def get(self, request):
         logout(request)
+        add_message(request, constants.SUCCESS, "User successfully logged out!")
         return redirect(reverse("login"))
