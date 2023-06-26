@@ -1,0 +1,13 @@
+<div class="card bg-dark text-white mb-3 col-sm-6">
+    <div class="card-header fs-4">
+        Participants
+    </div>
+    <div class="card-body">
+        <p>Total: {{ event_participants|length }}</p>
+        <ul class="list-group">
+            {% for participant in event_participants %}
+            <li class="list-group-item bg-dark text-white">{{ participant.username }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
