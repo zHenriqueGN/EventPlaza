@@ -33,7 +33,7 @@ class LoginView(View):
         }
         if not login_user(request, data):
             return redirect(reverse("login"))
-        return redirect(reverse("event_register"))
+        return redirect("/events/")
 
 
 class LogoutView(View):
