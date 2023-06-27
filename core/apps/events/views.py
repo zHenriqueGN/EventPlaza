@@ -4,9 +4,11 @@ from django.views import View
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils.decorators import method_decorator
 from django.contrib.messages import add_message, constants
+from django.http import HttpResponse
 from .controller import event_register, event_edit, event_delete
 from .models import Event
 from core.settings import LOGIN_URL
+import csv
 
 
 class EventListView(View):
@@ -116,7 +118,7 @@ class EventEditorView(View):
     )
     def get(self, request, id):
         event = Event.objects.filter(owner=request.user, id=id).first()
-        event_participants = event.participants.all()
+        event_participants = event.participants.all()[:5]
         context = {"event": event, "event_participants": event_participants}
         return render(request, "eventeditor.html", context)
 
@@ -156,3 +158,19 @@ class EventDeleteView(View):
     def post(self, request, id):
         event_delete(request, id)
         return redirect(reverse("event_edit"))
+
+
+class EventExportCSVView(View):
+    def get(self, _, id):
+        event = Event.objects.get(id=id)
+        response = HttpResponse(
+            content_type="text/csv",
+            headers={"Content-Disposition": f"attachment; filename='{event.name}.csv'"},
+        )
+
+        writer = csv.writer(response, delimiter=";")
+
+        for participant in event.participants.all():
+            writer.writerow((participant.username, participant.email))
+
+        return response
