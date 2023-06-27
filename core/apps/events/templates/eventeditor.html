@@ -5,6 +5,7 @@
     <div class="p-0 mb-3">
         <a href="{% url 'event_edit' %}"><button class="btn btn-primary">Back</button></a>
     </div>
-    {% include "fragments/events/eventeditorform.html" with events=events %}
+    {% include "fragments/events/eventeditorform.html" with event=event %}
+    {% include "fragments/events/eventparticipantslist.html" with event_participants=event_participants event_id=event.id participants_count=event.participants.all|length %}
 </div>
 {% endblock %}

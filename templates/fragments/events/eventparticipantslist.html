@@ -1,0 +1,31 @@
+<div class="card bg-dark text-white mb-3 col-sm-6">
+    <div class="card-header fs-4">
+        Participants
+    </div>
+    <div class="card-body">
+        <p>Number of participants: {{ participants_count }}</p>
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">User name</th>
+                    <th scope="col">E-mail</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for participant in event_participants %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ participant.username }}</td>
+                    <td>{{ participant.email }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-end">
+            <form action="{% url 'event_export_csv' event_id %}" method="GET">
+                <button class="btn btn-primary">Export to CSV</button>
+            </form>
+        </div>
+    </div>
+</div>

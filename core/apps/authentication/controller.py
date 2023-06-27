@@ -1,6 +1,7 @@
 from .models import User
 from django.contrib.messages import add_message, constants
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import Group
 
 
 def register_user(request, data) -> bool:
@@ -8,6 +9,7 @@ def register_user(request, data) -> bool:
     email = data.get("email")
     password = data.get("password")
     confirmpassword = data.get("confirmpassword")
+    user_group = data.get("user_group")
 
     if password != confirmpassword:
         add_message(request, constants.ERROR, "Your passwords are different!")
@@ -21,9 +23,23 @@ def register_user(request, data) -> bool:
         add_message(request, constants.ERROR, "Email already registered!")
         return False
 
-    User.objects.create_user(username=username, email=email, password=password)
+    user = User.objects.create_user(username=username, email=email, password=password)
+
+    if not add_group(user, user_group):
+        User.objects.get(username=username).delete()
+        add_message(request, constants.ERROR, "The selected group does not exists!")
+        return False
+
     add_message(request, constants.SUCCESS, "User successfully registered!")
 
+    return True
+
+
+def add_group(user: User, group: str) -> Group:
+    if not Group.objects.filter(name=group).exists():
+        return False
+    group = Group.objects.get(name=group)
+    user.groups.add(group)
     return True
 
 

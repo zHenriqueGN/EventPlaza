@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.views import View
 from .controller import register_user, login_user
 from django.contrib.auth import logout
+from django.contrib.messages import add_message, constants
 
 
 class RegisterView(View):
@@ -15,6 +16,7 @@ class RegisterView(View):
             "email": request.POST.get("email"),
             "password": request.POST.get("password"),
             "confirmpassword": request.POST.get("confirmpassword"),
+            "user_group": request.POST.get("user_group"),
         }
         if not register_user(request, data):
             return redirect(reverse("register"))
@@ -32,10 +34,11 @@ class LoginView(View):
         }
         if not login_user(request, data):
             return redirect(reverse("login"))
-        return redirect(reverse("event_register"))
+        return redirect("/events/")
 
 
 class LogoutView(View):
     def get(self, request):
         logout(request)
+        add_message(request, constants.SUCCESS, "User successfully logged out!")
         return redirect(reverse("login"))

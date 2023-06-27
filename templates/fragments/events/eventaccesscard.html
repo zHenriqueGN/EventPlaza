@@ -1,4 +1,5 @@
-<div class="card bg-dark text-light" style="width: 60rem;">
+{% load authentication_tags %}
+<div class="card bg-dark text-light mb-3" style="width: 60rem;">
     <img src="/media/{{ event.logo }}" class="card-img-top" alt="event-logo">
     <div class="card-body">
         <h5 class="card-title fw-bold">{{ event.title }}</h5>
@@ -19,8 +20,14 @@
             <span class="text-decoration-underline">Duration:</span>
             &nbsp;{{ event.duration }} hours
         </p>
+        {% if request.user|has_group:"Client" %}
+        {% if request.user in event.participants.all %}
+        <button type="submit" class="btn btn-success container-fluid">You are already subscribed!</button>
+        {% else %}
         <form action="{% url 'event_access' event.id %}" method="POST">{% csrf_token %}
             <button type="submit" class="btn btn-primary container-fluid">Subscribe</button>
         </form>
+        {% endif %}
+        {% endif %}
     </div>
 </div>

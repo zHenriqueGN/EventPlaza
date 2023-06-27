@@ -4,19 +4,17 @@ from django.views import View
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils.decorators import method_decorator
 from django.contrib.messages import add_message, constants
+from django.http import HttpResponse, Http404
 from .controller import event_register, event_edit, event_delete
 from .models import Event
 from core.settings import LOGIN_URL
+import csv
 
 
 class EventListView(View):
     @method_decorator(
         [
             login_required(login_url=LOGIN_URL),
-            user_passes_test(
-                lambda user: user.groups.filter(name="Client").exists(),
-                login_url="/",
-            ),
         ]
     )
     def get(self, request):
@@ -29,10 +27,6 @@ class EventAccessView(View):
     @method_decorator(
         [
             login_required(login_url=LOGIN_URL),
-            user_passes_test(
-                lambda user: user.groups.filter(name="Client").exists(),
-                login_url="/",
-            ),
         ]
     )
     def get(self, request, id):
@@ -124,7 +118,8 @@ class EventEditorView(View):
     )
     def get(self, request, id):
         event = Event.objects.filter(owner=request.user, id=id).first()
-        context = {"event": event}
+        event_participants = event.participants.all()[:5]
+        context = {"event": event, "event_participants": event_participants}
         return render(request, "eventeditor.html", context)
 
     @method_decorator(
@@ -163,3 +158,31 @@ class EventDeleteView(View):
     def post(self, request, id):
         event_delete(request, id)
         return redirect(reverse("event_edit"))
+
+
+class EventExportCSVView(View):
+    @method_decorator(
+        [
+            login_required(login_url=LOGIN_URL),
+            user_passes_test(
+                lambda user: user.groups.filter(name="Manager").exists(),
+                login_url="/",
+            ),
+        ]
+    )
+    def get(self, request, id):
+        event = Event.objects.get(id=id)
+        if not request.user == event.owner:
+            raise Http404()
+
+        response = HttpResponse(
+            content_type="text/csv",
+            headers={"Content-Disposition": f"attachment; filename={event.title} - Participants.csv"},
+        )
+
+        writer = csv.writer(response, delimiter=";")
+
+        for participant in event.participants.all():
+            writer.writerow((participant.username, participant.email))
+
+        return response
