@@ -8,9 +8,13 @@ from django.contrib.messages import add_message, constants
 
 class RegisterView(View):
     def get(self, request):
+        if request.user.is_authenticated:
+            return redirect("/events/")
         return render(request, "register.html")
 
     def post(self, request):
+        if request.user.is_authenticated:
+            return redirect("/events/")
         data = {
             "username": request.POST.get("username"),
             "email": request.POST.get("email"),
@@ -25,9 +29,13 @@ class RegisterView(View):
 
 class LoginView(View):
     def get(self, request):
+        if request.user.is_authenticated:
+            return redirect("/events/")
         return render(request, "login.html")
 
     def post(self, request):
+        if request.user.is_authenticated:
+            return redirect("/events/")        
         data = {
             "username": request.POST.get("username"),
             "password": request.POST.get("password"),
@@ -39,6 +47,8 @@ class LoginView(View):
 
 class LogoutView(View):
     def get(self, request):
+        if not request.user.is_authenticated:
+            return redirect(reverse("login"))
         logout(request)
         add_message(request, constants.SUCCESS, "User successfully logged out!")
         return redirect(reverse("login"))
