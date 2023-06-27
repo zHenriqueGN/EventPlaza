@@ -4,7 +4,7 @@ from django.views import View
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils.decorators import method_decorator
 from django.contrib.messages import add_message, constants
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from .controller import event_register, event_edit, event_delete
 from .models import Event
 from core.settings import LOGIN_URL
@@ -161,8 +161,20 @@ class EventDeleteView(View):
 
 
 class EventExportCSVView(View):
-    def get(self, _, id):
+    @method_decorator(
+        [
+            login_required(login_url=LOGIN_URL),
+            user_passes_test(
+                lambda user: user.groups.filter(name="Manager").exists(),
+                login_url="/",
+            ),
+        ]
+    )
+    def get(self, request, id):
         event = Event.objects.get(id=id)
+        if not request.user == event.owner:
+            raise Http404()
+
         response = HttpResponse(
             content_type="text/csv",
             headers={"Content-Disposition": f"attachment; filename={event.title} - Participants.csv"},
