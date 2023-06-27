@@ -1,0 +1,7 @@
+{% extends "bases/base.html" %}
+{% block "title" %}500 - Server error{% endblock %}
+{% block "body" %}
+<div class="d-flex justify-content-center aling-items-center">
+    {% include "fragments/utils/errorcard.html" with title='500 - Internal server error' message='There was some error processing your request, we are working on it...' %}
+</div>
+{% endblock %}
