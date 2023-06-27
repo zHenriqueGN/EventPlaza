@@ -165,7 +165,7 @@ class EventExportCSVView(View):
         event = Event.objects.get(id=id)
         response = HttpResponse(
             content_type="text/csv",
-            headers={"Content-Disposition": f"attachment; filename='{event.name}.csv'"},
+            headers={"Content-Disposition": f"attachment; filename={event.title} - Participants.csv"},
         )
 
         writer = csv.writer(response, delimiter=";")
