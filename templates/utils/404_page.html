@@ -1,0 +1,7 @@
+{% extends "bases/base.html" %}
+{% block "title" %}404 - Not found{% endblock %}
+{% block "body" %}
+<div class="d-flex justify-content-center aling-items-center">
+    {% include "fragments/utils/errorcard.html" with title='404 - Page not found' message='Look like you are lost...' %}
+</div>
+{% endblock %}
