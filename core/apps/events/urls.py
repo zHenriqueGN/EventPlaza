@@ -6,6 +6,7 @@ from .views import (
     EventEditView,
     EventEditorView,
     EventDeleteView,
+    EventExportCSVView,
 )
 
 urlpatterns = [
@@ -15,4 +16,7 @@ urlpatterns = [
     path("edit/", EventEditView.as_view(), name="event_edit"),
     path("edit/<int:id>/", EventEditorView.as_view(), name="event_editor"),
     path("delete/<int:id>/", EventDeleteView.as_view(), name="event_delete"),
+    path(
+        "generate_csv/<int:id>/", EventExportCSVView.as_view(), name="event_export_csv"
+    ),
 ]
