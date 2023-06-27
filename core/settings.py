@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "core.apps.authentication.apps.AuthenticationConfig",
     "core.apps.events.apps.EventsConfig",
+    "core.apps.utils.apps.UtilsConfig",
 ]
 
 MIDDLEWARE = [
@@ -140,7 +141,7 @@ AUTH_USER_MODEL = "authentication.User"
 
 # Authentication
 
-LOGIN_URL = "/authentication/login"
+LOGIN_URL = "/authentication/login/"
 
 
 # Django messages configs

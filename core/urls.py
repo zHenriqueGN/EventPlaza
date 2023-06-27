@@ -24,3 +24,7 @@ urlpatterns = [
     path("authentication/", include("core.apps.authentication.urls")),
     path("events/", include("core.apps.events.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+handler404 = "core.apps.utils.views.handler404"
+handler500 = "core.apps.utils.views.handler500"
