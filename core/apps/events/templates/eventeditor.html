@@ -7,5 +7,6 @@
     </div>
     {% include "fragments/events/eventeditorform.html" with event=event %}
     {% include "fragments/events/eventparticipantslist.html" with event_participants=event_participants event_id=event.id participants_count=event.participants.all|length %}
+    {% include "fragments/events/eventparticipantslist.html" with event_participants=event_participants event_id=event.id participants_count=event.participants.all|length %}
 </div>
 {% endblock %}
