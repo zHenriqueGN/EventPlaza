@@ -17,7 +17,7 @@
             {% include "fragments/events/eventparticipantslist.html" with event_participants=event_participants event_id=event.id participants_count=event.participants.all|length %}
         </div>
         <div class="col-6">
-            {% include "fragments/events/eventparticipantslist.html" with event_participants=event_participants event_id=event.id participants_count=event.participants.all|length %}
+            {% include "fragments/events/event_certifications.html" with num_certifications=num_certifications %}
         </div>
     </div>
 </div>
