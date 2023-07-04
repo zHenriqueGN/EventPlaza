@@ -7,7 +7,6 @@ from .views import (
     EventEditorView,
     EventDeleteView,
     EventExportCSVView,
-    EventCertificationsView,
 )
 
 urlpatterns = [
