@@ -2,11 +2,23 @@
 {% block "title" %}Event Editor{% endblock %}
 {% block "body" %}
 <div class="row mx-4">
-    <div class="p-0 mb-3">
-        <a href="{% url 'event_edit' %}"><button class="btn btn-primary">Back</button></a>
+    <div class="row mb-3">
+        <div class="col">
+            <a href="{% url 'event_edit' %}"><button class="btn btn-primary">Back</button></a>
+        </div>
     </div>
-    {% include "fragments/events/eventeditorform.html" with event=event %}
-    {% include "fragments/events/eventparticipantslist.html" with event_participants=event_participants event_id=event.id participants_count=event.participants.all|length %}
-    {% include "fragments/events/eventparticipantslist.html" with event_participants=event_participants event_id=event.id participants_count=event.participants.all|length %}
+    <div class="row">
+        <div class="col">
+            {% include "fragments/events/eventeditorform.html" with event=event %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            {% include "fragments/events/eventparticipantslist.html" with event_participants=event_participants event_id=event.id participants_count=event.participants.all|length %}
+        </div>
+        <div class="col-6">
+            {% include "fragments/events/eventparticipantslist.html" with event_participants=event_participants event_id=event.id participants_count=event.participants.all|length %}
+        </div>
+    </div>
 </div>
 {% endblock %}
