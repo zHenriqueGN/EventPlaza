@@ -20,5 +20,4 @@ urlpatterns = [
     path(
         "generate_csv/<int:id>/", EventExportCSVView.as_view(), name="event_export_csv"
     ),
-    path("event_certifications/<int:id>", EventCertificationsView.as_view(), name="certifications")
 ]
