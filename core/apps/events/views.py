@@ -188,27 +188,3 @@ class EventExportCSVView(View):
             writer.writerow((participant.username, participant.email))
 
         return response
-
-
-class EventCertificationsView(View):
-    @method_decorator(
-        [
-            login_required(login_url=LOGIN_URL),
-            user_passes_test(
-                lambda user: user.groups.filter(name="Manager").exists(),
-                login_url="/",
-            ),
-        ]
-    )
-    def get(self, request, id):
-        event = Event.objects.get(id=id)
-        if not request.user == event.owner:
-            raise Http404()
-
-        num_certifications = event.participants.all().count() - Certification.objects.filter(event=event).count()
-
-        context = {
-            "num_certification": num_certifications
-        }
-
-        return render(request, "event_certifications.html")
