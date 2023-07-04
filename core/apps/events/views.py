@@ -6,7 +6,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.messages import add_message, constants
 from django.http import HttpResponse, Http404
 from .controller import event_register, event_edit, event_delete
-from .models import Event
+from .models import Event, Certification
 from core.settings import LOGIN_URL
 import csv
 
@@ -177,7 +177,9 @@ class EventExportCSVView(View):
 
         response = HttpResponse(
             content_type="text/csv",
-            headers={"Content-Disposition": f"attachment; filename={event.title} - Participants.csv"},
+            headers={
+                "Content-Disposition": f"attachment; filename={event.title} - Participants.csv"
+            },
         )
 
         writer = csv.writer(response, delimiter=";")
@@ -186,3 +188,27 @@ class EventExportCSVView(View):
             writer.writerow((participant.username, participant.email))
 
         return response
+
+
+class EventCertificationsView(View):
+    @method_decorator(
+        [
+            login_required(login_url=LOGIN_URL),
+            user_passes_test(
+                lambda user: user.groups.filter(name="Manager").exists(),
+                login_url="/",
+            ),
+        ]
+    )
+    def get(self, request, id):
+        event = Event.objects.get(id=id)
+        if not request.user == event.owner:
+            raise Http404()
+
+        num_certifications = event.participants.all().count() - Certification.objects.filter(event=event).count()
+
+        context = {
+            "num_certification": num_certifications
+        }
+
+        return render(request, "event_certifications.html")
