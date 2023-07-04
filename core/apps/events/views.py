@@ -119,7 +119,10 @@ class EventEditorView(View):
     def get(self, request, id):
         event = Event.objects.filter(owner=request.user, id=id).first()
         event_participants = event.participants.all()[:5]
-        context = {"event": event, "event_participants": event_participants}
+
+        num_certifications = event.participants.all().count() - Certification.objects.filter(event=event).count()
+
+        context = {"event": event, "event_participants": event_participants, "num_certifications": num_certifications}
         return render(request, "eventeditor.html", context)
 
     @method_decorator(
