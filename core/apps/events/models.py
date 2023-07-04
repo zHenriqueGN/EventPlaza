@@ -16,3 +16,9 @@ class Event(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Certification(models.Model):
+    certification = models.ImageField(upload_to="certifications")
+    participant = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    event = models.ForeignKey(Event, on_delete=models.DO_NOTHING)

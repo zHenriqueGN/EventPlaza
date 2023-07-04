@@ -6,7 +6,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.messages import add_message, constants
 from django.http import HttpResponse, Http404
 from .controller import event_register, event_edit, event_delete
-from .models import Event
+from .models import Event, Certification
 from core.settings import LOGIN_URL
 import csv
 
@@ -119,7 +119,10 @@ class EventEditorView(View):
     def get(self, request, id):
         event = Event.objects.filter(owner=request.user, id=id).first()
         event_participants = event.participants.all()[:5]
-        context = {"event": event, "event_participants": event_participants}
+
+        num_certifications = event.participants.all().count() - Certification.objects.filter(event=event).count()
+
+        context = {"event": event, "event_participants": event_participants, "num_certifications": num_certifications}
         return render(request, "eventeditor.html", context)
 
     @method_decorator(
@@ -177,7 +180,9 @@ class EventExportCSVView(View):
 
         response = HttpResponse(
             content_type="text/csv",
-            headers={"Content-Disposition": f"attachment; filename={event.title} - Participants.csv"},
+            headers={
+                "Content-Disposition": f"attachment; filename={event.title} - Participants.csv"
+            },
         )
 
         writer = csv.writer(response, delimiter=";")
